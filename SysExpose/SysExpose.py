@@ -1,6 +1,6 @@
 import sys
 # import psutil
-# import platform
+import platform
 # from pathlib import *
 # from datetime import datetime
 from requests import *
@@ -17,7 +17,7 @@ def Menu():
     elif(action == "private"):
         private_ip_page()
     elif(action == "system"):
-        print("System")
+        system_info_page()
 
 
 def Help_page():
@@ -46,6 +46,22 @@ def private_ip_page():
     finally:
         s.close()
     print("The private ip of this system is " + private_ip)
+
+
+def system_info_page():
+    import platform
+
+    system = str(platform.system())
+    arch = str(platform.architecture())
+    machine = str(platform.machine())
+    node = str(platform.node())
+    processor = str(platform.processor())
+
+    print("The current operating system is: " + system)
+    print("The current system architecture is: " + arch)
+    print("The current machine type is:  " + machine)
+    print("The current hostname is " + node)
+    print("The current processor information is " + processor)
 
 
 Menu()
