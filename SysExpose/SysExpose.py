@@ -4,6 +4,7 @@ import sys
 # from pathlib import *
 # from datetime import datetime
 from requests import *
+import socket
 
 action = sys.argv[1]
 
@@ -14,7 +15,7 @@ def Menu():
     elif(action == "public"):
         public_ip_page()
     elif(action == "private"):
-        print("Private")
+        private_ip_page()
     elif(action == "system"):
         print("System")
 
@@ -30,8 +31,21 @@ def Help_page():
 
 
 def public_ip_page():
-    ip = get('https://api.ipify.org').text
-    print("My public IP address is " + ip)
+    public_ip = get('https://api.ipify.org').text
+    print("My public IP address is " + public_ip)
+
+
+def private_ip_page():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('10.255.255.255', 1))
+        private_ip = s.getsockname()[0]
+    except Exception:
+        private_ip = '127.0.0.1'
+    finally:
+        s.close()
+    print("The private ip of this system is " + private_ip)
 
 
 Menu()
