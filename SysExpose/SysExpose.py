@@ -60,8 +60,8 @@ def system_info_page():
     print("The current operating system is: " + system)
     print("The current system architecture is: " + arch)
     print("The current machine type is:  " + machine)
-    print("The current hostname is " + node)
-    print("The current processor information is " + processor)
+    print("The current hostname is: " + node)
+    print("The current processor information is: " + processor)
 
 
 Menu()
