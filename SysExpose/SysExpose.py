@@ -52,4 +52,3 @@ def Expose():
         private_ip_page()
     elif (action == "system"):
         system_info_page()
-
