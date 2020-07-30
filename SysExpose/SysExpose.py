@@ -1,23 +1,7 @@
 import sys
-# import psutil
 import platform
-# from pathlib import *
-# from datetime import datetime
 from requests import *
 import socket
-
-action = sys.argv[1]
-
-
-def Menu():
-    if(action == "help"):
-        Help_page()
-    elif(action == "public"):
-        public_ip_page()
-    elif(action == "private"):
-        private_ip_page()
-    elif(action == "system"):
-        system_info_page()
 
 
 def Help_page():
@@ -49,8 +33,6 @@ def private_ip_page():
 
 
 def system_info_page():
-    import platform
-
     system = str(platform.system())
     arch = str(platform.architecture())
     machine = str(platform.machine())
@@ -64,4 +46,12 @@ def system_info_page():
     print("The current processor information is: " + processor)
 
 
-Menu()
+action = sys.argv[1]
+if (action == "help"):
+    Help_page()
+elif (action == "public"):
+    public_ip_page()
+elif (action == "private"):
+    private_ip_page()
+elif (action == "system"):
+    system_info_page()
