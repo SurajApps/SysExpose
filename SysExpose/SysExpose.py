@@ -3,6 +3,7 @@ import sys
 # import platform
 # from pathlib import *
 # from datetime import datetime
+from requests import *
 
 action = sys.argv[1]
 
@@ -11,7 +12,7 @@ def Menu():
     if(action == "help"):
         Help_page()
     elif(action == "public"):
-        print("Public")
+        public_ip_page()
     elif(action == "private"):
         print("Private")
     elif(action == "system"):
@@ -26,6 +27,11 @@ def Help_page():
     private = Find the private IP address of this system
     system = Display system information, such as operating system etc.
     ------------------------------------------------------------------''')
+
+
+def public_ip_page():
+    ip = get('https://api.ipify.org').text
+    print("My public IP address is " + ip)
 
 
 Menu()
