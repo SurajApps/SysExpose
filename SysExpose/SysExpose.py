@@ -221,6 +221,6 @@ def Expose():
         disk_info_page()
 
     print(argspec)
-
+    argspec = "No arguments specified"
 
 Expose()
