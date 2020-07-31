@@ -21,13 +21,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SysExpose-pkg-SurajApps",
-    version="0.0.1",
+    version="1.0",
     author=__author__,
     description=__description__,
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=__url__,
     packages=__packages__,
-    classifiers=__packages__,
+    classifiers=__classifiers__,
     python_requires='>=3.6',
+    install_requires=["requests", "psutil"]
 )
