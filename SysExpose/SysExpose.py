@@ -1,15 +1,12 @@
-# import sys
+import sys
 import platform
 from requests import get
 import psutil
 import socket
 from datetime import datetime
-import argparse
 
 
 def Expose():
-    argspec = "No arguments specified"
-
     def get_size(bytes, suffix="B"):
         """
         Scale bytes to its proper format
@@ -24,31 +21,25 @@ def Expose():
                 return result
             bytes /= factor
 
-    # def help_page():
-    #     print('''
-    #     -----------------------------------------------------------------------------
-    #     | -h | help = Print this help dialog                                         |
-    #     | -n | public = Find the public IP address of this system                    |
-    #     | -n | private = Find the private IP address of this system                  |
-    #     | -n | info = Display network interface information.                         |
-    #     | -s | system = Display system information, such as operating system etc.    |
-    #     | -s | cpu = Display information regarding the currently installed CPU(s).   |
-    #     | -s | memory = Display memory information                                   |
-    #     | -s | boot = Display the time when the system was booted up.                |
-    #     | -s | disk = Display information about storage devices currently connected. |
-    #     -----------------------------------------------------------------------------''')
-    #     nonlocal argspec
-    #     argspec = ""
+    def Help_page():
+        print('''
+        -------------------------------------------------------------------------
+        | help = Print this help dialog                                         |
+        | public = Find the public IP address of this system                    |
+        | private = Find the private IP address of this system                  |
+        | system = Display system information, such as operating system etc.    |
+        | cpu = Display information regarding the currently installed CPU(s).   |
+        | memory = Display memory information                                   |
+        | boot = Display the time when the system was booted up.                |
+        | disk = Display information about storage devices currently connected. |
+        | network = Display network interface information.                      |
+        -------------------------------------------------------------------------''')
 
     def public_ip_page():
-        nonlocal argspec
-        argspec = ""
         public_ip = get('https://api.ipify.org').text
         print("My public IP address is " + public_ip)
 
     def private_ip_page():
-        nonlocal argspec
-        argspec = ""
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         try:
             # doesn't even have to be reachable
@@ -61,8 +52,6 @@ def Expose():
         print("The private ip of this system is " + private_ip)
 
     def system_info_page():
-        nonlocal argspec
-        argspec = ""
         system = str(platform.system())
         arch = str(platform.architecture())
         machine = str(platform.machine())
@@ -76,8 +65,6 @@ def Expose():
         print("The current processor information is: " + processor)
 
     def cpu_info_page():
-        nonlocal argspec
-        argspec = ""
         # let's print CPU information
         print("=" * 40, "CPU Info", "=" * 40)
         # number of cores
@@ -95,8 +82,6 @@ def Expose():
         print(f"Total CPU Usage: {psutil.cpu_percent()}%")
 
     def memory_info_page():
-        nonlocal argspec
-        argspec = ""
         # Memory Information
         print("=" * 40, "Memory Information", "=" * 40)
         # get the memory details
@@ -114,8 +99,6 @@ def Expose():
         print(f"Percentage: {swap.percent}%")
 
     def boot_time_page():
-        nonlocal argspec
-        argspec = ""
         # Boot Time
         print("=" * 40, "Boot Time", "=" * 40)
         boot_time_timestamp = psutil.boot_time()
@@ -123,8 +106,6 @@ def Expose():
         print(f"Boot Time: {bt.year}/{bt.month}/{bt.day} {bt.hour}:{bt.minute}:{bt.second}")
 
     def disk_info_page():
-        nonlocal argspec
-        argspec = ""
         # Disk Information
         print("=" * 40, "Disk Information", "=" * 40)
         print("Partitions and Usage:")
@@ -150,8 +131,6 @@ def Expose():
         print(f"Total write: {get_size(disk_io.write_bytes)}")
 
     def network_info_page():
-        nonlocal argspec
-        argspec = ""
         # Network information
         print("=" * 40, "Network Information", "=" * 40)
         # get all network interfaces (virtual and physical)
@@ -172,55 +151,24 @@ def Expose():
         print(f"Total Bytes Sent: {get_size(net_io.bytes_sent)}")
         print(f"Total Bytes Received: {get_size(net_io.bytes_recv)}")
 
-    # action = sys.argv[1]
-    # if (action == "help"):
-    #     help_page()
-    # elif (action == "public"):
-    #     public_ip_page()
-    # elif (action == "private"):
-    #     private_ip_page()
-    # elif (action == "system"):
-    #     system_info_page()
-    # elif (action == "cpu"):
-    #     cpu_info_page()
-    # elif (action == "memory"):
-    #     memory_info_page()
-    # elif (action == "boot"):
-    #     boot_time_page()
-    # elif (action == "disk"):
-    #     disk_info_page()
-    # elif (action == "network"):
-    #     network_info_page()
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--system', help='system / cpu / memory / boot / disk', required=False)
-    parser.add_argument('-n', '--network', help='info / public / private', required=False)
-    args = vars(parser.parse_args())
-    if (args['network'] == "public"):
+    action = sys.argv[1]
+    if (action == "help"):
+        Help_page()
+    elif (action == "public"):
         public_ip_page()
-
-    if (args['network'] == "private"):
+    elif (action == "private"):
         private_ip_page()
-
-    if (args['network'] == "info"):
-        network_info_page()
-
-    if (args['system'] == "system"):
+    elif (action == "system"):
         system_info_page()
-
-    if (args['system'] == "cpu"):
+    elif (action == "cpu"):
         cpu_info_page()
-
-    if (args['system'] == "memory"):
+    elif (action == "memory"):
         memory_info_page()
-
-    if (args['system'] == "boot"):
+    elif (action == "boot"):
         boot_time_page()
-
-    if (args['system'] == "disk"):
+    elif (action == "disk"):
         disk_info_page()
-
-    print(argspec)
-
+    elif (action == "network"):
+        network_info_page()
 
 Expose()
