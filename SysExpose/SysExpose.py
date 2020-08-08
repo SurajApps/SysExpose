@@ -8,7 +8,14 @@ import argparse
 
 
 def Expose():
-    argspec = "No arguments specified"
+    argspec = '''usage: sys_expose [-h] [-s SYSTEM] [-n NETWORK]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s SYSTEM, --system SYSTEM
+                        system / cpu / memory / boot / disk
+  -n NETWORK, --network NETWORK
+                        info / public / private'''
 
     def get_size(bytes, suffix="B"):
         """
@@ -221,6 +228,13 @@ def Expose():
         disk_info_page()
 
     print(argspec)
-    argspec = "No arguments specified"
+    argspec = '''usage: sys_expose [-h] [-s SYSTEM] [-n NETWORK]
 
-Expose()
+optional arguments:
+  -h, --help            show this help message and exit
+  -s SYSTEM, --system SYSTEM
+                        system / cpu / memory / boot / disk
+  -n NETWORK, --network NETWORK
+                        info / public / private'''
+
+# Expose()
