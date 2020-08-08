@@ -1,7 +1,7 @@
 import setuptools
 
-__project__ = "SysExpose"
-__version__ = "0.0.1"
+__project__ = "SysExpose-pkg-SurajApps"
+__version__ = "1.1"
 __description__ = "A python module to find system information, such as private/public ip"
 __packages__ = ["SysExpose"]
 __author__ = "Suraj Apps"
@@ -20,8 +20,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="SysExpose-pkg-SurajApps",
-    version="1.0",
+    name=__project__,
+    version=__version__,
     author=__author__,
     description=__description__,
     long_description=long_description,
@@ -30,5 +30,11 @@ setuptools.setup(
     packages=__packages__,
     classifiers=__classifiers__,
     python_requires='>=3.6',
-    install_requires=["requests", "psutil"]
+    entry_points=
+    {
+        "console_scripts":
+        [
+            "sys_expose = SysExpose.SysExpose:Expose",
+        ]
+    }
 )
